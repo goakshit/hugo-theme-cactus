@@ -1,4 +1,7 @@
 <head>
+  {{ if .Site.Params.GoogleAnalyticsID }}
+  {{ partial "analytics-gtag.html" . }}
+  {{ end }}
   <link rel="preload" href="{{ "lib/font-awesome/webfonts/fa-brands-400.woff2" | relURL }}" as="font" type="font/woff2" crossorigin="anonymous">
   <link rel="preload" href="{{ "lib/font-awesome/webfonts/fa-regular-400.woff2" | relURL }}" as="font" type="font/woff2" crossorigin="anonymous">
   <link rel="preload" href="{{ "lib/font-awesome/webfonts/fa-solid-900.woff2" | relURL }}" as="font" type="font/woff2" crossorigin="anonymous">
@@ -38,13 +41,6 @@
   {{ if .Site.Params.rss }}
   {{ with .OutputFormats.Get "RSS" }}
     {{ printf `<link href="%s" rel="%s" type="%s" title="%s" />` .Permalink .Rel .MediaType.Type $.Site.Title | safeHTML }}
-  {{ end }}
-  {{ end }}
-  {{ if .Site.GoogleAnalytics }}
-  {{ if .Site.Params.googleAnalyticsAsync }}
-    {{ template "_internal/google_analytics_async.html" . }}
-  {{ else }}
-    {{ template "_internal/google_analytics.html" . }}
   {{ end }}
   {{ end }}
 </head>
